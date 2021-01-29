@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head') %>
+<body>
+	<!-- Header -->
+	<%- include('partials/headerNavbar') %>
+	<!-- /Header -->
+
+	<!-- product detail -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Detalle del producto: <%=producto.name%></h2>
+			</div>
+		</div>
+		<div class="product-detail">
+			<div class="row">
+				<div class="col-12 col-lg-8">
+					<img src="/images/products/<%=producto.image%>" alt="<%=producto.name%>" class="product-detail-img">
+					<p class="product-detail-description">
+						<%= producto.description%>
+					</p>
+				</div>
+				<div class="col-12 col-lg-4">
+					<article class="product-detail-info">
+						<h2 class="product-detail-title"><%=producto.name%></h2>
+							<% if (producto.discount > 0) { %>
+								<p class="product-detail-price small">
+									<span>$<%=producto.price%></span>
+									/
+									<b><%=producto.discount%>% OFF</b>
+								</p>
+								<p class="product-detail-price">
+									$<%=toThousand(producto.price - Math.round(producto.price / 100 * producto.discount))%>
+								</p>
+								<p class="product-detail-price">
+									$<%= toThousand(producto.price)%>
+								</p>
+							<% } else { %>
+							<p class="product-detail-price">
+								$<%= toThousand(producto.price)%>
+							</p>
+							<% } %>
+
+						<ul class="actions-list">
+							<li>
+								<i class="fas fa-credit-card"></i>
+								<p>Pagá en 12 cuotas sin interes</p>
+							</li>
+							<li>
+								<i class="fas fa-store"></i>
+								<p>Retiro gratis en locales del vendedor</p>
+							</li>
+						</ul>
+
+						<a href="#" class="buy-now-button">COMPRAR AHORA</a>
+						<hr>
+
+						<a href="/products/edit/<%=producto.id%>?_method=PUT" class="action-button edit">EDITAR PRODUCTO</a>
+						<form action="/products/delete/<%=producto.id%>?_method=DELETE" method="POST" style="display: inline-flex">
+							<button type="submit" class="action-button delete">ELIMINAR</button>
+						</form>
+					</article>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /product detail -->
+
+	<!-- footer -->
+	<%- include('partials/footer') %>
+	<!-- /footer -->
+
+</body>	
+</html>
